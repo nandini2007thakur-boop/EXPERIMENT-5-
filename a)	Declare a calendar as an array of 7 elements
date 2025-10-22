@@ -1,0 +1,25 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Day {
+    char *dayName;
+    int date;
+    char *activity;
+};
+
+int main() {
+    struct Day *week;  
+
+    
+    week = (struct Day *)malloc(7 * sizeof(struct Day));
+
+    if (week == NULL) {
+        printf("Memory allocation failed!\n");
+        return 1;
+    }
+    printf("Memory allocated for 7 days successfully.\n");
+
+    free(week);
+
+    return 0;
+}
