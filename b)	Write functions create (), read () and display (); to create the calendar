@@ -1,0 +1,63 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+
+struct Day {
+    char *dayName;       
+    int date;            
+    char *activity;      
+};
+
+int main() {
+    int i;
+    struct Day *week;  
+    week = (struct Day *)malloc(7 * sizeof(struct Day));
+    if (week == NULL) {
+        printf("Memory allocation failed!\n");
+        return 1;
+    }
+
+    printf("Enter details for 7 days:\n");
+
+    for (i = 0; i < 7; i++) {
+        char tempDay[50], tempActivity[100];
+
+        printf("\nDay %d:\n", i + 1);
+
+        printf("Enter name of the day: ");
+        scanf("%s", tempDay);
+
+        week[i].dayName = (char *)malloc(strlen(tempDay) + 1);
+        strcpy(week[i].dayName, tempDay);
+
+        printf("Enter date: ");
+        scanf("%d", &week[i].date);
+        getchar(); 
+        
+        printf("Enter activity: ");
+        fgets(tempActivity, sizeof(tempActivity), stdin);
+        tempActivity[strcspn(tempActivity, "\n")] = '\0'; 
+
+        
+        week[i].activity = (char *)malloc(strlen(tempActivity) + 1);
+        strcpy(week[i].activity, tempActivity);
+    }
+
+    
+    printf("\n\n===== WEEKLY CALENDAR =====\n");
+    for (i = 0; i < 7; i++) {
+        printf("Day: %s\n", week[i].dayName);
+        printf("Date: %d\n", week[i].date);
+        printf("Activity: %s\n\n", week[i].activity);
+    }
+
+    
+    for (i = 0; i < 7; i++) {
+        free(week[i].dayName);
+        free(week[i].activity);
+    }
+    free(week);
+
+    return 0;
+}
